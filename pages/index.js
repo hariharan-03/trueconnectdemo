@@ -240,7 +240,7 @@ export default class Home extends Component {
                   <div>
                     <h3><strong>Add Your Personal Details</strong></h3>
                     <h6>Lorem ipsum is simply dummy text of the printing the typesetting industry.</h6>
-                    <form className="white-bg pt-1" onSubmit={() => { this.clickfun() }}>
+                    <form className="white-bg" onSubmit={() => { this.clickfun() }}>
                       {this.state.ShowErr ?  <div className="error">{this.state.ErrMsg}</div> : ""}
                       <div className="form-group">
                         <label for="inputAddress">Full name</label>
