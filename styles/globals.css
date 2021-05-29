@@ -38,7 +38,11 @@ a {
 label{
   color:#909090;
 }
-
+.error{
+  text-align: center;
+  color:red;
+  font-size: 15px;
+}
 h3, h5{
   text-align: center;
 }

@@ -14,6 +14,9 @@ export default class Home extends Component {
       PersonalSection: true,
       CompanyDetailsSection: false,
       MailSection: false,
+      ShowErr:false,
+      ErrMsg:"",
+      ShowErrone:false,
 
       country: country.countries,
       stateList: "",
@@ -85,22 +88,22 @@ export default class Home extends Component {
   
   PersonalDetailSubmit = () => {
     if (this.state.Name === "") {
-      alert("Please enter name")
+      this.setState({ShowErr:true, ErrMsg:"Please enter name"})
       return false;
     } else if (this.state.Country === "") {
-      alert("Please select country")
+      this.setState({ShowErr:true, ErrMsg:"Please select country"})
       return false;
     } else if (this.state.States === "") {
-      alert("Please select state")
+      this.setState({ShowErr:true, ErrMsg:"Please select state"})
       return false;
     } else if (this.state.Phone === "") {
-      alert("Please enter Phone number")
+      this.setState({ShowErr:true, ErrMsg:"Please enter Phone number"})
       return false;
     }else if(!(/^[0-9]{10}$/.test(this.state.Phone))){
-      alert("Please entet 10 digit mobile number")
+      this.setState({ShowErr:true, ErrMsg:"Please entet 10 digit mobile number"})
       return false;
     } else {
-      this.setState({ PersonalSection: false, CompanyDetailsSection: true,MailSection: false })
+      this.setState({ PersonalSection: false, CompanyDetailsSection: true,MailSection: false,ShowErr:true, ErrMsg:"" })
     }
   }
 
@@ -117,28 +120,28 @@ export default class Home extends Component {
   
   CompanyDetailsSubmit = () => {
     if (this.state.Image === "") {
-      alert("Please Upload image")
+      this.setState({ShowErrone:true, ErrMsg:"Please Upload image"})
       return false;
     } else if (this.state.companyName === "") {
-      alert("Please enter Company name")
+      this.setState({ShowErrone:true, ErrMsg:"Please enter Company name"})
       return false;
     } else if (this.state.emailId === "") {
-      alert("Please enter EmailID")
+      this.setState({ShowErrone:true, ErrMsg:"Please enter EmailID"})
       return false;
     } else if((/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(this.state.emailId)) == false){
-      alert("Enter valid EmailId")
+      this.setState({ShowErrone:true, ErrMsg:"Enter valid EmailId"})
       return false
     }else if (this.state.jobTitle === "") {
-      alert("Please enter JobTitle")
+      this.setState({ShowErrone:true, ErrMsg:"Please enter JobTitle"})
       return false;
     } else if (this.state.YearOfExperience === "") {
-      alert("Please enter YearOfExperience")
+      this.setState({ShowErrone:true, ErrMsg:"Please enter YearOfExperience"})
       return false;
     } else if (!this.state.terms) {
-      alert("Please Accept the terms and condition")
+      this.setState({ShowErrone:true, ErrMsg:"Please Accept the terms and condition"})
       return false;
     } else {
-      this.setState({PersonalSection: false,CompanyDetailsSection: false, MailSection: true })
+      this.setState({PersonalSection: false,CompanyDetailsSection: false, MailSection: true,ShowErrone:true, ErrMsg:"" })
     }
   }
 
@@ -180,6 +183,9 @@ export default class Home extends Component {
     }
     localStorage.setItem("data",JSON.stringify(dataObject))
     this.setState({
+      ShowErr:false,
+      ErrMsg:"",
+      ShowErrone:false,
       country: country.countries,
       stateList: "",
       dial_code: "",
@@ -201,10 +207,10 @@ export default class Home extends Component {
   }
 
   ComapnyBackBtn=()=>{
-    this.setState({PersonalSection: true,CompanyDetailsSection: false, MailSection: false})
+    this.setState({PersonalSection: true,CompanyDetailsSection: false, MailSection: false,ShowErrone:false,ShowErr:false,ErrMsg:""})
   }
   MailBackBtn=()=>{
-    this.setState({PersonalSection: false,CompanyDetailsSection: true, MailSection: false})
+    this.setState({PersonalSection: false,CompanyDetailsSection: true, MailSection: false,ShowErrone:false,ShowErr:false,ErrMsg:""})
   }
   render() {
     return (
@@ -234,7 +240,8 @@ export default class Home extends Component {
                   <div>
                     <h3><strong>Add Your Personal Details</strong></h3>
                     <h6>Lorem ipsum is simply dummy text of the printing the typesetting industry.</h6>
-                    <form className="white-bg" onSubmit={() => { this.clickfun() }}>
+                    <form className="white-bg pt-1" onSubmit={() => { this.clickfun() }}>
+                      {this.state.ShowErr ?  <div className="error">{this.state.ErrMsg}</div> : ""}
                       <div className="form-group">
                         <label for="inputAddress">Full name</label>
                         <input type="text" className="form-control form-control-sm" autoComplete="off" id="inputAddress" placeholder="Name" name="Name" onChange={(e) => { this.handleInput(e) }} value={this.state.Name} />
@@ -290,6 +297,7 @@ export default class Home extends Component {
                   <h3><strong>Add Your Company Details</strong></h3>
                   <h6>Lorem ipsum is simply dummy text of the printing the typesetting industry.</h6>
                   <form className="white-bg">
+                  {this.state.ShowErrone ?  <div className="error">{this.state.ErrMsg}</div> : ""}
                     <div className="d-flex align-items-center">
                       <img src={this.state.Image ? this.state.Image : "/images/img.svg"} style={{ height: '70px', width: '70px', borderRadius: "50%" }} alt="uploadimg" id="profile"></img>
                       <span className="pl-3" onClick={() => { this.ImageSelectTrigger() }}>Upload your company logo</span>
