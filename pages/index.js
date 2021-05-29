@@ -60,6 +60,7 @@ export default class Home extends Component {
 
   }
   handleInput = (e) => {
+    this.setState({ShowErrone:false,ShowErr:false,ErrMsg:""})
     if (e.target.type === "checkbox") {
       this.setState({ [e.target.name]: e.target.checked })
     } else {
