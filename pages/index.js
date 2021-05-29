@@ -293,7 +293,7 @@ export default class Home extends Component {
                     <div className="d-flex align-items-center">
                       <img src={this.state.Image ? this.state.Image : "/images/img.svg"} style={{ height: '70px', width: '70px', borderRadius: "50%" }} alt="uploadimg" id="profile"></img>
                       <span className="pl-3" onClick={() => { this.ImageSelectTrigger() }}>Upload your company logo</span>
-                      <input style={{ display: "none" }} ref={this.myRef} onChange={(e) => { this.handleImageUpload(e) }} type="file" />
+                      <input style={{ display: "none" }} ref={this.myRef} onChange={(e) => { this.handleImageUpload(e) }} type="file" accept="image/*" />
                     </div>
                     <div className="form-group">
                       <label for="inputAddress">Company name</label>
